@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Test</title>
+    <link rel="stylesheet" href="style.css">
+
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+    <div class="testPanel">
+        <div class="testPanel_cnt">
+            <div class="l-title">Тесты:</div>
+            <div class="testPanel-section">
+                <div class="testPanel-fields">
+                    <label>
+                        <input type="number" id="userID2" placeholder="ID пользователя">
+                    </label>
+                    <label>
+                        <textarea id="textField" placeholder="Сообщение" maxlength="200"></textarea>
+                    </label>
+                </div>
+                <div class="testPanel-endpoints">
+                    <div>
+                        <div class="endpoint-title">
+                            <span>POST : /api/send-text</span>
+                            <button id="sendMess">Отправка сообщения</button>
+                        </div>
+                        <div class="endpoint-descr">
+                            Если ID незнакомый, то на бэке создастся новый пользователь с этим ID
+                            <br><br>
+                            Ответ:
+                        </div>
+<pre class="endpoint-code">
+{
+    "message": {
+        "content": "",
+        "timestamp": ""
+    }
+}</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="testPanel-section">
+                <div class="testPanel-fields">
+                    <label>
+                        <input type="number" id="userID1" placeholder="ID пользователя">
+                    </label>
+                </div>
+                <div class="testPanel-endpoints">
+                    <div>
+                        <div class="endpoint-title">
+                            <span>GET  : /api/history/{user_id}</span>
+                            <button id="getHistory">Получение истории</button>
+                        </div>
+                        <div class="endpoint-descr">
+                            Ответ:
+                        </div>
+                        <pre class="endpoint-code">
+{
+    "user_id": {user_id},
+    "history": [
+        {
+            "role": "",
+            "content": "",
+            "timestamp": ""
+        },
+    ]
+}</pre>
+                    </div>
+                    <div>
+                        <div class="endpoint-title">
+                            <span>GET  : /api/history/{user_id}/last</span>
+                            <button id="getHistoryLast">Получение последнего сообщения</button>
+                        </div>
+                        <div class="endpoint-descr">
+                            Ответ:
+                        </div>
+<pre class="endpoint-code">{
+    "user_id" : {user_id},
+    "last_message" : {
+        "role": "",
+        "content": "",
+        "timestamp": ""
+    }
+}</pre>
+                    </div>
+                    <div>
+                        <div class="endpoint-title">
+                            <span>POST : /api/clear-history/{user_id}</span>
+                            <button id="clearHistory">Очистка истории</button>
+                        </div>
+                        <div class="endpoint-descr">
+                            Ответ:
+                        </div>
+<pre class="endpoint-code">{
+    "message" : "История для user {user_id} была очищена"
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="form">
+            <div id="menu">
+                <img id="logo" src="data:image/jpeg;base64,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">
+                <div>
+                    <button id="modal-show">Gpt4</button>
+                </div>
+            </div>
+            <div id="chat">
+            </div>
+        </div>
+    </div>
+    <div id='overlay' class="overlay">
+        <div class="modal-chat">
+            <span id="modal-close" class="overlay-close"></span>
+            <div id="modal-login" class="modal-chat_login">
+                <div class="l-title">Авторизация</div>
+                <label>
+                    <input type="text" placeholder="ID" value="" id="user_id">
+                </label>
+                <label>
+                    <input type="password" placeholder="Password" value="" id="password">
+                </label>
+                <button id="authBtn">Войти</button>
+            </div>
+            <div id="modal-chat" class="modal-chat_cnt">
+                <div id="modal-history" class="modal-chat_history">
+                </div>
+                <div class="modal-chat_field">
+                    <textarea id='modalTextfield' type="text" placeholder="Сообщение.."></textarea>
+                    <button id="modalSendMess">Отправить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

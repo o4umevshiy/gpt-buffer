@@ -1,4 +1,5 @@
-# This project will be moved from GITLAB soon.
+# GPT Api
 
-## gpt-buffer
-For places where GPT not allowed
+Модуль создавался для чата.
+
+Был расположен на европейском сервере, использовался как Api для работы с OpenAi. 
